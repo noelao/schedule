@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jatowalo</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        .inputan {
+            display: flex;
+            flex-direction: column;
+            input, button {
+                padding: 6px 12px;
+                width: max-content;
+                font-size: 1rem;
+                font-family: poppins;
+                font-weight: bold;
+            }
+
+        }
+        .jadwal {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            .satuan {
+                display: grid;
+                grid-template-columns: 3rem 1fr;
+
+            }
+        }
+        .gap {
+            height: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="inputan">
+            <input type="text" placeholder="kata">
+            <button class="injek">tambahkan</button>
+        </div>
+        <div class="gap"></div>
+        <div class="jadwal">
+
+        </div>
+    </div>
+
+
+
+<script>
+    const datas = [];
+    
+    
+    const inputanText = document.querySelector(".inputan input");
+    const tombolInjek = document.querySelector(".inputan .injek");
+
+    tombolInjek.addEventListener("click", function(){
+        const kol = {
+            hari:new Date(),
+            kegiatan:inputanText.value
+        }
+        datas.push(kol);
+        localStorage.setItem("datas", JSON.stringify(datas));
+
+        tampilkanDataJadwal();
+
+    })
+
+    const data = {
+        hari: new Date(),
+        kegiatan:"libur"
+    }
+    const data2 = {
+        hari: new Date(),
+        kegiatan:"freee"
+    }
+
+    datas.push(data);
+    datas.push(data2);
+
+
+    localStorage.setItem("datas", JSON.stringify(datas));
+
+
+    tampilkanDataJadwal();
+    function tampilkanDataJadwal(){
+        let datas = [];
+        const wadahJadwal = document.querySelector(".jadwal");
+        try {
+            const ambilData = localStorage.getItem("datas");
+            datas = JSON.parse(ambilData);
+
+            console.log(datas);
+
+        } catch(err){
+            console.log(err);
+        } finally {
+            if(datas){
+                const jadwalan = datas.map((ini, i) => {
+                    return `
+                        <div class="satuan">
+                            <small>
+                                ${new Intl.DateTimeFormat('id-ID', { weekday: 'long' }).format(new Date(ini.hari))}
+                            </small>
+                            <h1>
+                                ${ini.kegiatan}
+                            </h1>
+                        </div>`
+                }).join(" ");
+                wadahJadwal.innerHTML = jadwalan;
+            }
+        }
+
+    }
+</script>
+</body>
+</html>
