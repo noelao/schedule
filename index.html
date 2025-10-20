@@ -49,6 +49,7 @@
         <div class="inputan">
             <input type="text" placeholder="kata">
             <button class="injek">tambahkan</button>
+            <button onclick="hapusSemua()">hapus Semua</button>
         </div>
         <div class="gap"></div>
         <div class="jadwal">
@@ -125,10 +126,19 @@
                         </div>`
                 }).join(" ");
                 wadahJadwal.innerHTML = jadwalan;
+            } else {
+                wadahJadwal.innerHTML = "<h1>semua sudah di hapus silahkan hibernasi >w<</h1>";
             }
         }
 
     }
+
+    function hapusSemua(){
+        console.log("mulai hapus semua");
+        localStorage.removeItem("datas");
+        tampilkanDataJadwal();
+    }
+
 </script>
 </body>
 </html>
