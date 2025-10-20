@@ -90,7 +90,12 @@
     datas.push(data2);
 
 
-    localStorage.setItem("datas", JSON.stringify(datas));
+    const dataAwal = localStorage.getItem("datas");
+    if(dataAwal){
+        
+    } else {
+        localStorage.setItem("datas", JSON.stringify(datas));
+    }
 
 
     tampilkanDataJadwal();
