@@ -59,7 +59,7 @@
 
 
 <script>
-    const datas = [];
+    let datas = [];
     
     
     const inputanText = document.querySelector(".inputan input");
@@ -92,27 +92,28 @@
 
     const dataAwal = localStorage.getItem("datas");
     if(dataAwal){
-        
+        const parse = JSON.parse(dataAwal);
+        datas = parse;
     } else {
+        console.log("tidak ada data datas dalam localStorage")
         localStorage.setItem("datas", JSON.stringify(datas));
     }
 
 
     tampilkanDataJadwal();
     function tampilkanDataJadwal(){
-        let datas = [];
+        let datas2 = [];
         const wadahJadwal = document.querySelector(".jadwal");
         try {
             const ambilData = localStorage.getItem("datas");
-            datas = JSON.parse(ambilData);
+            datas2 = JSON.parse(ambilData);
 
-            console.log(datas);
-
+            console.log(datas2);
         } catch(err){
             console.log(err);
         } finally {
-            if(datas){
-                const jadwalan = datas.map((ini, i) => {
+            if(datas2){
+                const jadwalan = datas2.map((ini, i) => {
                     return `
                         <div class="satuan">
                             <small>
